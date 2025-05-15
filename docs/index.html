@@ -2,40 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Anonymous Project Page</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffusion$^\mathbf{2}$: Dual Diffusion Model with Uncertainty-Aware Adaptive Noise for Momentary Trajectory Prediction</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: white;
+      color: black;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1, h2 {
+      color: black;
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    img, video {
+      max-width: 100%;
+      display: block;
+      margin: 20px auto;
+    }
+    .results {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .results img {
+      width: 48%;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Anonymous NeurIPS Submission</h1>
-    <p><a href="paper.pdf">Paper</a> | <a href="https://github.com/anon-username/your-repo">Code</a></p>
-  </header>
+  <h1>Anonymous NeurIPS Submission</h1>
 
-  <section>
-    <h2>Abstract</h2>
-    <p>Accurate pedestrian trajectory prediction is crucial for ensuring safety and efficiency in autonomous systems and human-robot interaction scenarios. Earlier studies primarily utilized sufficient observational data to predict future trajectories. However, in many real-world scenarios, such as the sudden emergence of pedestrians from blind spots, obtaining sufficient observational data remains difficult, making accurate prediction a persistent challenge and even contributing to traffic accidents. Therefore, advancing research on pedestrian trajectory prediction under extreme scenarios is critical for enhancing traffic safety. In this work, we propose a novel framework termed \textit{Diffusion$^\mathbf{2}$}, tailored for momentary trajectory prediction. \textit{Diffusion$^\mathbf{2}$} consists of two sequentially connected diffusion models: one for \textit{backward prediction}, which generates unobserved historical trajectories, and the other for \textit{forward prediction}, which forecasts future trajectories. Given that the generated unobserved historical trajectories may introduce additional noise, we propose a dual-head parameterization mechanism to estimate their aleatoric uncertainty and design an adaptive noise module that dynamically modulates the noise scale in the forward diffusion process. Empirically, \textit{Diffusion$^\mathbf{2}$} sets a new state-of-the-art in momentary trajectory prediction on ETH/UCY and Stanford Drone datasets.</p>
-  </section>
+  <h2>Abstract</h2>
+  <p>
+    Accurate pedestrian trajectory prediction is crucial for ensuring safety and efficiency in autonomous systems and human-robot interaction scenarios. 
+    Earlier studies primarily utilized sufficient observational data to predict future trajectories. 
+    However, in many real-world scenarios, such as the sudden emergence of pedestrians from blind spots, obtaining sufficient observational data remains difficult, 
+    making accurate prediction a persistent challenge and even contributing to traffic accidents. 
+    Therefore, advancing research on pedestrian trajectory prediction under extreme scenarios is critical for enhancing traffic safety. 
+    In this work, we propose a novel framework termed \textit{Diffusion$^\mathbf{2}$}, tailored for momentary trajectory prediction. 
+    \textit{Diffusion$^\mathbf{2}$} consists of two sequentially connected diffusion models: one for \textit{backward prediction}, which generates unobserved historical trajectories, 
+    and the other for \textit{forward prediction}, which forecasts future trajectories. Given that the generated unobserved historical trajectories may introduce additional noise, 
+    we propose a dual-head parameterization mechanism to estimate their aleatoric uncertainty and design an adaptive noise module that dynamically modulates the noise scale in the forward diffusion process. 
+    Empirically, \textit{Diffusion$^\mathbf{2}$} sets a new state-of-the-art in momentary trajectory prediction on ETH/UCY and Stanford Drone datasets.
+  </p>
 
-  <section>
-    <h2>Method Overview</h2>
-    <img src="images/method_overview.png" alt="Method Overview">
-  </section>
+  <h2>Method Overview</h2>
+  <img src="images/method_overview.png" alt="Method Overview Diagram">
 
-  <section>
-    <h2>Results</h2>
-    <img src="images/results_comparison.png" alt="Results Comparison">
-  </section>
+  <h2>Results</h2>
+  <div class="results">
+    <div><strong>Ours</strong><br><img src="images/results_ours.png" alt="Ours Result Plot"></div>
+    <div><strong>Baseline</strong><br><img src="images/results_baseline.png" alt="Baseline Result Plot"></div>
+  </div>
 
-  <section>
-    <h2>Demo Video</h2>
-    <video controls>
-      <source src="videos/demo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </section>
+<!--   <h2>Demo Video</h2>
+  <video controls>
+    <source src="videos/demo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video> -->
 
   <footer>
-    <p>All materials are anonymized in compliance with the NeurIPS double-blind policy.</p>
+    All materials are anonymized in compliance with the NeurIPS double-blind policy.
   </footer>
 </body>
 </html>
