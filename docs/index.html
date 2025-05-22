@@ -76,17 +76,87 @@
     Empirically, <em>Diffusion<sup>2</sup></em> sets a new state-of-the-art in momentary trajectory prediction on ETH/UCY and Stanford Drone datasets.
   </p>
 
-  <h2>Method Overview</h2>
-  <img src="images/model.png" alt="Overall Architecture">
+  <h2>Introduction</h2>
+  <figure>
+    <img src="images/intro.png" alt="Intro" style="max-width: 100%;">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      Three distinct frameworks are proposed to address momentary trajectory prediction. 
+      (a) The model directly utilizes observable trajectories to predict future trajectories. 
+      (b) The approach jointly predicts unobservable historical trajectories and future trajectories. 
+      (c) Our proposed framework, <i>Diffusion<sup>2</sup></i>, consists of two sequentially connected diffusion models: one dedicated to <i>backward prediction</i>, and the other to <i>forward prediction</i>.
+    </figcaption>
+  </figure>
+  
 
-  <h2>Results</h2>
-  <img src="images/experiment_11.png" alt="Experiment Results">
+  <h2>Overall Architecture</h2>
+  <figure>
+    <img src="images/model.png" alt="Overall Architecture" style="max-width: 100%;">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      The overview of our proposed <i>Diffusion<sup>2</sup></i>:  
+      (a) <b>Framework</b>: <i>Diffusion<sup>2</sup></i> consists of two sequentially connected diffusion models, DDPM<sub>past</sub> and DDPM<sub>fut</sub>. 
+      DDPM<sub>past</sub> simultaneously reconstructs the unobserved historical trajectory <b>x<sup>ubs</sup><sub>0</sub></b> and estimates its associated uncertainty <b>u</b>. 
+      Then, DDPM<sub>fut</sub> predicts the future trajectories <b>y<sub>0</sub></b>. Both diffusion models share a common encoder that extracts contextual features <b>h<sub>1</sub></b> from the observed history <b>x<sup>obs</sup></b>, 
+      while DDPM<sub>fut</sub> employs an additional trajectory encoder to extract features <b>v<sub>1</sub></b> from the predicted unobserved historical trajectory <b>x<sup>ubs</sup><sub>0</sub></b>.  
+      (b) <b>Dual-head Parameterization Mechanism</b>: The standard noise prediction network is augmented with two output heads, one for predicting noise and the other for predicting variance, 
+      which corresponds to aleatoric uncertainty.  
+      (c) <b>Learned Adaptive Noise Scheduling</b>: A gamma module takes <b>u</b> and the diffusion step <b>m</b> as inputs and dynamically modulates the noise scale in the forward diffusion process of DDPM<sub>fut</sub>. 
+      Note that the red dashed line indicates the unobserved historical trajectory, with gray shading representing its uncertainty, while the green and blue dashed lines denote the observed history and future trajectories, respectively.
+    </figcaption>
+  </figure>
+  
 
-<!--   <h2>Demo Video</h2>
-  <video controls>
-    <source src="videos/demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video> -->
+  <h2>Experiment Results</h2>
+  <figure>
+    <img src="images/table_1.png" alt="Table Results" style="max-width: 100%;">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      Comparisons of various approaches on multiple datasets. The evaluation results are reported as ADE/FDE (m).
+      Compared with previous methods, <i>Diffusion<sup>2</sup></i> first uses a dual-head parameterization mechanism to estimate the uncertainty of historical trajectory predictions. 
+      Then, the adaptive noise scheduling module dynamically adjusts the forward noise addition process according to the uncertainty. 
+      Through these modules, the framework ensures the extraction and learning of effective features, thereby ensuring the quality of trajectory generation.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/experiment_11.png" alt="Experiment Visual" style="max-width: 100%;">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      Visualization of predicted unobservable historical and future trajectories on the ETH/UCY dataset. 
+      The red lines represent the unobserved historical trajectories, while the cyan lines denote the observed historical trajectories. 
+      The ground truth future trajectories are marked in light blue. 
+      Predictions from <i>Diffusion<sup>2</sup></i> are visualized as blue dashed lines for future and orange dashed lines for history, 
+      whereas the PCCSNet predictions are highlighted in magenta dashed lines.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/experiment_2.png" alt="Experiment Visual 2" style="max-width: 100%;">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      The learned schedules of <b>&lambda;<sub>m</sub></b> and <b>l<sub>m</sub></b> over the diffusion steps <b>m</b>. 
+      The colour gradient — from blue (low predictive uncertainty) to red (high predictive uncertainty) — highlights how the model adapts its noise-injection strategy to the input’s uncertainty level. 
+      For low-uncertainty inputs (blue curves), <b>l<sub>m</sub></b> rises steeply, so stronger noise is injected early in the forward process. 
+      Conversely, high-uncertainty inputs (red curves) show a slower increase, delaying and attenuating the injected noise. 
+      The underlying reason for this attenuation is that highly uncertain inputs must preserve fragile signal features; 
+      by adding less noise, the model avoids drowning these features and enables the reverse process to recover them more reliably during reconstruction.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/table_2.png" alt="Ablation Study">
+    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+      <p>
+        We start by using two independent diffusion models to predict the unobserved history and future trajectories. 
+        Then, we add the LANS module while keeping the uncertainty estimation disabled. 
+        On the ETH/UCY dataset, we observe a slight performance drop, suggesting that without explicit uncertainty guidance, 
+        LANS may lack meaningful modulation signals, which can impair the noise injection process and affect future trajectory quality. 
+        On the SDD dataset, however, LANS still brings mild improvement even without uncertainty, possibly due to its ability to adjust noise scale based on training dynamics in simpler open-space scenarios.
+      </p>
+
+      <p>
+        Finally, enabling both uncertainty estimation and LANS (i.e., the full <i>Diffusion<sup>2</sup></i>) yields the best performance on both datasets. 
+        This demonstrates that uncertainty-guided adaptive noise scheduling helps the model capture historical trajectory characteristics more effectively, 
+        leading to improved trajectory prediction accuracy.
+      </p>
+    </figcaption>
+  </figure>
 
   <footer>
     All materials are anonymized in compliance with the NeurIPS double-blind policy.
