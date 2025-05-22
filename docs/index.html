@@ -79,7 +79,7 @@
   <h2>Introduction</h2>
   <figure>
     <img src="images/intro.png" alt="Intro" style="max-width: 100%;">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       Three distinct frameworks are proposed to address momentary trajectory prediction. 
       (a) The model directly utilizes observable trajectories to predict future trajectories. 
       (b) The approach jointly predicts unobservable historical trajectories and future trajectories. 
@@ -91,7 +91,7 @@
   <h2>Overall Architecture</h2>
   <figure>
     <img src="images/model.png" alt="Overall Architecture" style="max-width: 100%;">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       The overview of our proposed <i>Diffusion<sup>2</sup></i>:  
       (a) <b>Framework</b>: <i>Diffusion<sup>2</sup></i> consists of two sequentially connected diffusion models, DDPM<sub>past</sub> and DDPM<sub>fut</sub>. 
       DDPM<sub>past</sub> simultaneously reconstructs the unobserved historical trajectory <b>x<sup>ubs</sup><sub>0</sub></b> and estimates its associated uncertainty <b>u</b>. 
@@ -108,7 +108,7 @@
   <h2>Experiment Results</h2>
   <figure>
     <img src="images/table_1.png" alt="Table Results" style="max-width: 100%;">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       Comparisons of various approaches on multiple datasets. The evaluation results are reported as ADE/FDE (m).
       Compared with previous methods, <i>Diffusion<sup>2</sup></i> first uses a dual-head parameterization mechanism to estimate the uncertainty of historical trajectory predictions. 
       Then, the adaptive noise scheduling module dynamically adjusts the forward noise addition process according to the uncertainty. 
@@ -118,7 +118,7 @@
 
   <figure>
     <img src="images/experiment_11.png" alt="Experiment Visual" style="max-width: 100%;">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       Visualization of predicted unobservable historical and future trajectories on the ETH/UCY dataset. 
       The red lines represent the unobserved historical trajectories, while the cyan lines denote the observed historical trajectories. 
       The ground truth future trajectories are marked in light blue. 
@@ -128,8 +128,8 @@
   </figure>
 
   <figure>
-    <img src="images/experiment_2.png" alt="Experiment Visual 2" style="max-width: 100%;">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <img src="images/experiment_2.png" alt="Experiment Visual 2" style="width: 70%; display: block; margin: 0 auto;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       The learned schedules of <b>&lambda;<sub>m</sub></b> and <b>l<sub>m</sub></b> over the diffusion steps <b>m</b>. 
       The colour gradient — from blue (low predictive uncertainty) to red (high predictive uncertainty) — highlights how the model adapts its noise-injection strategy to the input’s uncertainty level. 
       For low-uncertainty inputs (blue curves), <b>l<sub>m</sub></b> rises steeply, so stronger noise is injected early in the forward process. 
@@ -140,8 +140,8 @@
   </figure>
 
   <figure>
-    <img src="images/table_2.png" alt="Ablation Study">
-    <figcaption style="text-align: center; font-size: 14px; color: gray;">
+    <img src="images/table_2.png" alt="Ablation Study" style="width: 50%; display: block; margin: 0 auto;">
+    <figcaption style="text-align: justify; font-size: 14px; color: #444444;">
       <p>
         We start by using two independent diffusion models to predict the unobserved history and future trajectories. 
         Then, we add the LANS module while keeping the uncertainty estimation disabled. 
